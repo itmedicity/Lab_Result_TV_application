@@ -81,8 +81,7 @@ const PatientLabRecord = ({ patient, index }) => {
                     scrollbarWidth: 'none',
                 }}
             >
-                {patient?.
-                    tests?.map((res, index) => (
+                {patient?.tests?.map((res, index) => (
                         <Box
                             key={index}
                             sx={{

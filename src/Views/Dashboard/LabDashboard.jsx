@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Grid } from '@mui/joy';
 import { getPatientLabResults, groupPatientLabResults } from '../Common/CommonCode';
 import PatientLabRecord from './PatientLabRecord';
@@ -6,12 +6,15 @@ import { useQuery } from '@tanstack/react-query';
 import PatientBoxSkeleton from '../Components/PatientBoxSkeleton';
 import ServerError from '../Components/ServerError';
 import { useMediaQuery } from '@mui/material';
+import FloatingSearchComponent from '../Components/FloatingSearchComponent';
 
 const LabDashboard = () => {
     // Reference for the scrollable container
     const scrollRef = useRef(null);
     // Detect if the screen orientation is landscape
     const isLandscape = useMediaQuery('(orientation: landscape)');
+    // State to hold the search query
+    const [searchQuery, setSearchQuery] = useState('');
 
     /* Fetch patient lab results using React Query */
     const {
@@ -51,6 +54,18 @@ const LabDashboard = () => {
             });
     }, [groupedResults]);
 
+
+    // Filter patients based on the search query
+    const filteredPatients = useMemo(() => {
+        if (searchQuery.trim() === '') return filteredAndSortedPatients;
+
+        return filteredAndSortedPatients?.filter(patient => {
+            const patientName = patient?.name?.toLowerCase() || '';
+            const mrdNumber = patient?.pt_no?.toLowerCase() || '';
+            const searchTerm = searchQuery.toLowerCase();
+            return patientName.includes(searchTerm) || mrdNumber.includes(searchTerm);
+        });
+    }, [filteredAndSortedPatients, searchQuery]);
 
     // Scrolls up and down automatically in a loop
     useEffect(() => {
@@ -101,8 +116,9 @@ const LabDashboard = () => {
                 '&::-webkit-scrollbar': { display: 'none' },
                 msOverflowStyle: 'none',
                 scrollbarWidth: 'none',
-            }}
-        >
+            }}>
+            <FloatingSearchComponent onSearchChange={setSearchQuery} />
+
             <Grid container spacing={isLandscape ? 0.5 : 0.1} sx={{ p: 2 }}>
                 {LoadingPatientResult ? (
                     // Render skeleton loaders while fetching data
@@ -113,7 +129,7 @@ const LabDashboard = () => {
                     ))
                 ) : (
                     //Render sorted & filtered patient records
-                    filteredAndSortedPatients?.map((patient, index) => (
+                    filteredPatients?.map((patient, index) => (
                         <Grid key={index} xs={12} sm={6} md={6} lg={4} xl={4}>
                             <PatientLabRecord patient={patient} index={index} />
                         </Grid>

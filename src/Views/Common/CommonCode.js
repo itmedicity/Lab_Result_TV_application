@@ -1,4 +1,5 @@
 import { axiosellider } from "../Axios/Axios";
+import { keyframes } from '@mui/system';
 
 export const getPatientLabResults = async () => {
     try {
@@ -50,3 +51,8 @@ export const groupPatientLabResults = (Patientlabresults) => {
     return Object.values(grouped);
 };
 
+export const bounce = keyframes`
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+`;
