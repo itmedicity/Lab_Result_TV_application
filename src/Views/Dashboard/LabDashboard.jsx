@@ -117,9 +117,13 @@ const LabDashboard = () => {
                 msOverflowStyle: 'none',
                 scrollbarWidth: 'none',
             }}>
-            <FloatingSearchComponent onSearchChange={setSearchQuery} />
+            <FloatingSearchComponent
+                onSearchChange={setSearchQuery}
+            />
 
-            <Grid container spacing={isLandscape ? 0.5 : 0.1} sx={{ p: 2 }}>
+            <Grid container
+                spacing={isLandscape ? 0.5 : 0.1}
+                sx={{ p: 2 }}>
                 {LoadingPatientResult ? (
                     // Render skeleton loaders while fetching data
                     Array.from({ length: 14 }).map((_, index) => (

@@ -14,7 +14,7 @@ const PatientLabRecord = ({ patient, index }) => {
                 flex: 1,
                 borderRadius: 5,
                 boxShadow: 'sm',
-                height: 80,
+                height: 110,
                 pb: 1,
                 px: 1,
                 display: 'flex',
@@ -40,20 +40,30 @@ const PatientLabRecord = ({ patient, index }) => {
                     gap: 1,
                 }}
             >
-                <Typography sx={{
-                    fontSize: 18, color: '#502c6dff', fontWeight: 800,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-
-                }}>
-                    {patient?.pt_no}
-                </Typography>
-                <Divider orientation="vertical" sx={{ width: 2, bgcolor: 'pink', my: 1, height: '70%' }} />
                 <Typography
                     sx={{
-                        fontSize: 18,
+                        fontSize: 20,
                         color: '#502c6dff',
+                        fontWeight: 800,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+
+                    }}>
+                    {patient?.pt_no}
+                </Typography>
+                <Divider
+                    orientation="vertical"
+                    sx={{
+                        width: 2,
+                        bgcolor: 'pink',
+                        my: 1,
+                        height: '70%'
+                    }} />
+                <Typography
+                    sx={{
+                        fontSize: 20,
+                        color: 'rgb(84, 50, 112)',
                         fontWeight: 800,
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
@@ -82,44 +92,43 @@ const PatientLabRecord = ({ patient, index }) => {
                 }}
             >
                 {patient?.tests?.map((res, index) => (
-                        <Box
-                            key={index}
+                    <Box
+                        key={index}
+                        sx={{
+                            borderRadius: 'xs',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: 'xs',
+                            height: 18,
+                            width: 180,
+                            px: 1,
+                            backgroundColor:res.result === 'Y' ? '#2a8634ff' : '#a83131ff',
+                            color: 'white',
+                            fontSize: 15,
+                            fontWeight: 600,
+                            textAlign: 'center',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
+                    >
+                        <Typography
                             sx={{
-                                borderRadius: 'xs',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxShadow: 'xs',
-                                height: 15,
-                                width: 60,
-                                px: 1,
-                                backgroundColor:
-                                    res.result === 'Y' ? '#2a8634ff' : '#a83131ff',
-                                color: 'white',
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: 600,
+                                color: '#ced4da',
+                                width: '100%',
                                 textAlign: 'center',
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontSize: 10,
-                                    fontWeight: 600,
-                                    color: '#ced4da',
-                                    width: '100%',
-                                    textAlign: 'center',
-                                    whiteSpace: 'nowrap',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                }}
-                            >
-                                {res.name}
-                            </Typography>
-                        </Box>
-                    ))}
+                            {res.name}
+                        </Typography>
+                    </Box>
+                ))}
             </Box>
         </Box>
     );
