@@ -12,6 +12,10 @@
 /build
 /Constant
 
+#API Link File
+src/**/**/Static.jsx
+src/**/**/Static.js
+
 # misc
 .DS_Store
 .env.local
